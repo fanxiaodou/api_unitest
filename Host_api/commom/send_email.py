@@ -18,11 +18,11 @@ def send_mail(new_report):
     '''
     # 第三方 SMTP 服务
     mail_host = "smtp.qq.com"  # 设置服务器
-    mail_user = "879460204@qq.com"  # 用户名
-    mail_pass = "uffzvffodlgzbfch"  # 口令
+    mail_user = "1111111@qq.com"  # 用户名
+    mail_pass = "xxxxxxxx"  # 口令
 
-    sender = "879460204@qq.com"
-    receivers = ["879460204@qq.com"]  # 接收邮件，可设置为你的QQ邮箱或者其他邮箱
+    sender = "1111111@qq.com@qq.com"
+    receivers = ["1111111@qq.com"]  # 接收邮件，可设置为你的QQ邮箱或者其他邮箱
 
     message["Subject"] = Header("自动化测试报告", "utf-8").encode()
     message["From"] = Header(sender)
