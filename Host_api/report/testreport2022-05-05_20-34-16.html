@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>接口自动化测试报告,测试结果如下：</title>
+    <meta name="generator" content="HTMLTestRunner 0.1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" 
+    rel="stylesheet">
+
+    %
+    <script src="https://cdn.bootcss.com/echarts/3.8.5/echarts.common.min.js"></script>
+
+</head>
+<body>
+    <script language="javascript" type="text/javascript"><!--
+    output_list = Array();
+    
+    /*level 增加测试结果的筛选条件  --zhaohongwei
+    0:Summary //all hiddenRow
+    1:Pass    //pt none, ft hiddenRow, et hiddenRow
+    2:Failed  //pt hiddenRow, ft none, et hiddenRow
+    3:Error    //pt hiddenRow, ft hiddenRow, et none
+    4:All     //pt none, ft none, et none
+    */
+    
+    /* level - 0:Summary; 1:Pass; 2:Failed; 3:Error; 4: All*/
+    function showCase(level) {
+        trs = document.getElementsByTagName("tr");
+        for (var i = 0; i < trs.length; i++) {
+            tr = trs[i];
+            id = tr.id;
+            if (id.substr(0,2) == 'ft') {
+            if (level == 1 || level == 3 ||  level == 0) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+                }
+            }
+            if (id.substr(0,2) == 'pt') {
+                if (level == 2 || level == 3 ||  level == 0){
+                    tr.className = 'hiddenRow';
+                }
+                else {
+                    tr.className = '';
+                }
+            }
+            if (id.substr(0,2) == 'et') {
+                if (level == 1 || level == 2 ||  level == 0 ){
+                    tr.className = 'hiddenRow';
+                }
+                else {
+                    tr.className = '';
+                }
+            }
+        }
+    }
+    /* 优化详情与收缩不生效  --zhaohongwei */
+    function showClassDetail(cid, count) {
+        var id_list = Array(count);
+        var toHide = 1;
+        for (var i = 0; i < count; i++) {
+            tid0 = 't' + cid.substr(1) + '_' + (i+1);
+            tid = 'f' + tid0;
+            tr = document.getElementById(tid);
+            if (!tr) {
+                tid = 'p' + tid0;
+                tr = document.getElementById(tid);
+            }
+            /* 增加error  --zhaohongwei*/
+            if (!tr) {
+                tid = 'e' + tid0;
+                tr = document.getElementById(tid);
+            }
+            id_list[i] = tid;
+            if (tr.className) {
+                toHide = 0;
+            }
+        }
+        for (var i = 0; i < count; i++) {
+            tid = id_list[i];
+            if (toHide) {
+                document.getElementById('div_'+tid).style.display = 'none'
+                document.getElementById(tid).className = 'hiddenRow';
+            }
+            else {
+                document.getElementById(tid).className = '';
+            }
+        }
+    }
+
+
+    function showTestDetail(div_id){
+        var details_div = document.getElementById(div_id)
+        var displayState = details_div.style.display
+        // alert(displayState)
+        if (displayState != 'block' ) {
+            displayState = 'block'
+            details_div.style.display = 'block'
+        }
+        else {
+            details_div.style.display = 'none'
+        }
+    }
+    
+    
+    function html_escape(s) {
+        s = s.replace(/&/g,'&amp;');
+        s = s.replace(/</g,'&lt;');
+        s = s.replace(/>/g,'&gt;');
+        return s;
+    }
+    /* 增加selenium结合unittest测试的结果截图 --zhaohongwei  引用自GoverSky*/
+    function show_img(obj) {
+        var obj1 = obj.nextElementSibling
+        obj1.style.display='block'
+        var index = 0;//每张图片的下标，
+        var len = obj1.getElementsByTagName('img').length;
+        var imgyuan = obj1.getElementsByClassName('imgyuan')[0]
+        //var start=setInterval(autoPlay,500);
+        obj1.onmouseover=function(){//当鼠标光标停在图片上，则停止轮播
+            clearInterval(start);
+        }
+        obj1.onmouseout=function(){//当鼠标光标停在图片上，则开始轮播
+            start=setInterval(autoPlay,1000);
+        }    
+        for (var i = 0; i < len; i++) {
+            var font = document.createElement('font')
+            imgyuan.appendChild(font)
+        }
+        var lis = obj1.getElementsByTagName('font');//得到所有圆圈
+        changeImg(0)
+        var funny = function (i) {
+            lis[i].onmouseover = function () {
+                index=i
+                changeImg(i)
+            }
+        }
+        for (var i = 0; i < lis.length; i++) {
+            funny(i);
+    }
+    
+    function autoPlay(){
+        if(index>len-1){
+            index=0;
+            clearInterval(start); //运行一轮后停止
+        }
+        changeImg(index++);
+    }
+    imgyuan.style.width= 25*len +"px";
+    //对应圆圈和图片同步
+    function changeImg(index) {
+        var list = obj1.getElementsByTagName('img');
+        var list1 = obj1.getElementsByTagName('font');
+        for (i = 0; i < list.length; i++) {
+            list[i].style.display = 'none';
+            list1[i].style.backgroundColor = 'white';
+        }
+        list[index].style.display = 'block';
+        list1[index].style.backgroundColor = 'blue';
+    }
+
+    }
+    function hide_img(obj){
+        obj.parentElement.style.display = "none";
+        obj.parentElement.getElementsByClassName('imgyuan')[0].innerHTML = "";
+    }
+    --></script>
+    <div id="div_base">
+        
+    <div class='page-header'>
+        <h1>接口自动化测试报告,测试结果如下：
+        </h1>
+        <div style="float:left;width:50%;">
+            <p class='parameters'> <p class='attribute'><strong>测试人员:</strong> Chenxianqi</p>
+<p class='attribute'><strong>开始时间:</strong> 2022-05-05 20:34:16</p>
+<p class='attribute'><strong>运行时长:</strong> 0:00:00.109994</p>
+<p class='attribute'><strong>测试结果:</strong> 共 5  通过 5  通过率:100.0%</p>
+</p>
+            <br>
+            <br>
+            <p class='description'> 用例执行情况：</p>
+        </div>
+        <div id="chart" style="float:left;width:50%;height:250px;"></di>
+    </div>
+
+
+        
+<div class="btn-group btn-group-sm">
+<button class="btn btn-primary" onclick='javascript:showCase(0)'>概览</button>
+<button class="btn btn-success" onclick='javascript:showCase(1)'>成功</button>
+<button class="btn btn-danger" onclick='javascript:showCase(2)'>失败</button>
+<button class="btn btn-warning" onclick='javascript:showCase(3)'>错误</button>
+<button class="btn btn-info" onclick='javascript:showCase(4)'>全部</button>
+</div>
+<p></p>
+<table id='result_table' class="table table-bordered">
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row'>
+    <td>测试套件/测试用例</td>
+    <td>总数</td>
+    <td>通过</td>
+    <td>失败</td>
+    <td>错误</td>
+    <td>查看</td>
+</tr>
+
+<tr class='passClass'>
+    <td>test_login.TestLogin</td>
+    <td>5</td>
+    <td>5</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c1',5)">详情</a></td>
+</tr>
+
+<tr id='pt1_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_pwd_empty</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1_1')" >
+        通过</a>
+
+    <div id='div_pt1_1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1_1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1_1: [2022-05-05 20:34:16,359] - logger.py] - INFO: 登录接口用例开始执行
+[2022-05-05 20:34:16,359] - logger.py] - INFO: 用例标题：验证密码为空请求失败
+[2022-05-05 20:34:16,399] - logger.py] - INFO: 接口请求成功
+[2022-05-05 20:34:16,399] - logger.py] - INFO: 接口返回状态断言成功，状态码为200
+[2022-05-05 20:34:16,399] - logger.py] - INFO: 响应体msg信息断言成功
+[2022-05-05 20:34:16,399] - logger.py] - INFO: 响应体状态码断言成功，状态码为400
+[2022-05-05 20:34:16,399] - logger.py] - INFO: 验证密码为空请求失败成功
+[2022-05-05 20:34:16,399] - logger.py] - INFO: 登录接口用例执行结束
+[2022-05-05 20:34:16,399] - logger.py] - INFO: -------------------------------------------
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_pwd_err</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1_2')" >
+        通过</a>
+
+    <div id='div_pt1_2' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1_2').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1_2: [2022-05-05 20:34:16,399] - logger.py] - INFO: 登录接口用例开始执行
+[2022-05-05 20:34:16,399] - logger.py] - INFO: 用例标题：验证密码错误请求失败
+[2022-05-05 20:34:16,419] - logger.py] - INFO: 接口请求成功
+[2022-05-05 20:34:16,419] - logger.py] - INFO: 接口返回状态断言成功，状态码为200
+[2022-05-05 20:34:16,419] - logger.py] - INFO: 响应体msg信息断言成功
+[2022-05-05 20:34:16,419] - logger.py] - INFO: 响应体状态码断言成功，状态码为400
+[2022-05-05 20:34:16,419] - logger.py] - INFO: 验证密码错误请求失败成功
+[2022-05-05 20:34:16,419] - logger.py] - INFO: 登录接口用例执行结束
+[2022-05-05 20:34:16,419] - logger.py] - INFO: -------------------------------------------
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_suesscs</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1_3')" >
+        通过</a>
+
+    <div id='div_pt1_3' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1_3').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1_3: [2022-05-05 20:34:16,419] - logger.py] - INFO: 登录接口用例开始执行
+[2022-05-05 20:34:16,419] - logger.py] - INFO: 用例标题：验证登录接口请求成功
+[2022-05-05 20:34:16,439] - logger.py] - INFO: 接口请求成功
+[2022-05-05 20:34:16,439] - logger.py] - INFO: 接口返回状态断言成功，状态码为200
+[2022-05-05 20:34:16,439] - logger.py] - INFO: 响应体msg信息断言成功
+[2022-05-05 20:34:16,439] - logger.py] - INFO: 响应体状态码断言成功，状态码为200
+[2022-05-05 20:34:16,439] - logger.py] - INFO: 验证接口登录成功
+[2022-05-05 20:34:16,439] - logger.py] - INFO: 登录接口用例执行结束
+[2022-05-05 20:34:16,439] - logger.py] - INFO: -------------------------------------------
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_user_empty</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1_4')" >
+        通过</a>
+
+    <div id='div_pt1_4' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1_4').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1_4: [2022-05-05 20:34:16,439] - logger.py] - INFO: 登录接口用例开始执行
+[2022-05-05 20:34:16,439] - logger.py] - INFO: 用例标题：验证用户名为空请求失败
+[2022-05-05 20:34:16,449] - logger.py] - INFO: 接口请求成功
+[2022-05-05 20:34:16,449] - logger.py] - INFO: 接口返回状态断言成功，状态码为200
+[2022-05-05 20:34:16,449] - logger.py] - INFO: 响应体msg信息断言成功
+[2022-05-05 20:34:16,449] - logger.py] - INFO: 响应体状态码断言成功，状态码为400
+[2022-05-05 20:34:16,449] - logger.py] - INFO: 验证用户名为空请求失败成功
+[2022-05-05 20:34:16,449] - logger.py] - INFO: 登录接口用例执行结束
+[2022-05-05 20:34:16,449] - logger.py] - INFO: -------------------------------------------
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_user_err</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1_5')" >
+        通过</a>
+
+    <div id='div_pt1_5' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1_5').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1_5: [2022-05-05 20:34:16,449] - logger.py] - INFO: 登录接口用例开始执行
+[2022-05-05 20:34:16,449] - logger.py] - INFO: 用例标题：验证用户名错误请求失败
+[2022-05-05 20:34:16,469] - logger.py] - INFO: 接口请求成功
+[2022-05-05 20:34:16,469] - logger.py] - INFO: 接口返回状态断言成功，状态码为200
+[2022-05-05 20:34:16,469] - logger.py] - INFO: 响应体msg信息断言成功
+[2022-05-05 20:34:16,469] - logger.py] - INFO: 响应体状态码断言成功，状态码为400
+[2022-05-05 20:34:16,469] - logger.py] - INFO: 验证用户名错误请求失败成功
+[2022-05-05 20:34:16,469] - logger.py] - INFO: 登录接口用例执行结束
+[2022-05-05 20:34:16,469] - logger.py] - INFO: -------------------------------------------
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='total_row'>
+    <td>总计</td>
+    <td>5</td>
+    <td>5</td>
+    <td>0</td>
+    <td>0</td>
+    <td>通过率：100.0%</td>
+    
+</tr>
+</table>
+
+        
+<div id='ending'>
+    <p align="center">
+    Copyright &copy 2016
+    <a href="http://blog.csdn.net/z_johnny" target="_blank"> HONGWEI </a>
+    Inc. All rights reserved.
+    </p>
+</div>
+ <div style=" position:fixed;right:50px; bottom:30px; width:20px; height:20px;cursor:pointer">
+    <a href="#"><span class="glyphicon glyphicon-chevron-up" style = "font-size:30px;" aria-hidden="true">
+    </span></a></div>
+
+        
+        <script type="text/javascript">
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('chart'));
+
+            // 指定图表的配置项和数据
+            var option = {
+                title : {
+                    text: '测试执行情况',
+                    x:'center'
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                color: ['#00A600', '#FF5151', '#FF8A19'],
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                    data: ['通过','失败','错误']
+                },
+                series : [
+                    {
+                        name: '测试执行情况',
+                        type: 'pie',
+                        radius : '60%',
+                        center: ['50%', '60%'],
+                        data:[
+                            {value:5, name:'通过'},
+                            {value:0, name:'失败'},
+                            {value:0, name:'错误'}
+                        ],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+        </script>
+        
+    </div>
+</body>
+</html>

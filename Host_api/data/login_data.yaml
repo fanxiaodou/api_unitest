@@ -1,0 +1,9 @@
+test_login_pwd_err: [{"pwd":"@#@#@"},
+                     {"pwd":"12345611"},
+                     {"pwd":"123 456"}]
+
+
+test_login_user_err: [{"user":"@#@#@"},
+                      {"user":"12345611"},
+                      {"user":"admin11"},
+                      {"user":"adm in"}]

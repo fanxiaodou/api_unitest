@@ -1,0 +1,40 @@
+test_login_suesscs:
+  {"method": "post",
+   "url":"http://192.168.12.128:8080/cms/manage/loginJump.do",
+   "headers": {"Content-Type": "application/x-www-form-urlencoded"},
+   "params":{"userAccount":"admin",
+             "loginPwd":"123456"}
+  }
+
+test_login_user_err:
+  {"method": "post",
+   "url":"http://192.168.12.128:8080/cms/manage/loginJump.do",
+   "headers": {"Content-Type": "application/x-www-form-urlencoded"},
+   "params":{"userAccount":"${user}",
+             "loginPwd":"123456"}
+  }
+
+test_login_user_empty:
+  {"method": "post",
+   "url":"http://192.168.12.128:8080/cms/manage/loginJump.do",
+   "headers": {"Content-Type": "application/x-www-form-urlencoded"},
+   "params":{"userAccount":"",
+             "loginPwd":"123456"}
+  }
+
+
+test_login_pwd_err:
+  {"method": "post",
+   "url":"http://192.168.12.128:8080/cms/manage/loginJump.do",
+   "headers": {"Content-Type": "application/x-www-form-urlencoded"},
+   "params":{"userAccount": "admin",
+             "loginPwd":"${pwd}"}
+  }
+
+test_login_pwd_empty:
+  {"method": "post",
+   "url":"http://192.168.12.128:8080/cms/manage/loginJump.do",
+   "headers": {"Content-Type": "application/x-www-form-urlencoded"},
+   "params":{"userAccount":"admin",
+             "loginPwd":""}
+  }
